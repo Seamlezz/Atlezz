@@ -1,4 +1,4 @@
-name: Deploy to firebase distribution
+name: Beta Rollout
 on:
   push:
     branches:
@@ -17,7 +17,7 @@ jobs:
       - run: flutter config --enable-web
       - run: flutter build web
       - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: web-build
           path: build/web
@@ -36,7 +36,7 @@ jobs:
       - run: flutter clean
       - run: flutter build ios --release --no-codesign
       - name: Upload iPA
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: ios-build
           path: build/ios/iphoneos
@@ -52,32 +52,31 @@ jobs:
         with:
           channel: "dev"
       - run: flutter pub get
-      #     - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
-      #     - run: flutter build appbundle --target-platform android-arm,android-arm64
-      - run: flutter build appbundle
+      - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
+      #- run: flutter build appbundle --target-platform android-arm,android-arm64
       - name: Upload APK
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
           name: apk-build
           path: build/app/outputs/apk/release
-  deploy_web:
-    name: Deploy Web to Firebase Hosting
-    needs: build_web
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: web-build
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting --public web-build
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: default
+#  deploy_web:
+#    name: Deploy Web to Firebase Hosting
+#    needs: build_web
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Repo
+#        uses: actions/checkout@v2
+#      - name: Download Artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: web-build
+#      - name: Deploy to Firebase
+#        uses: w9jds/firebase-action@master
+#        with:
+#          args: deploy --only hosting --public web-build
+#        env:
+#          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+#          PROJECT_ID: default
   beta_ios:
     name: Upload iOS Beta to Firebase App Distribution
     needs: [build_ios]
@@ -89,7 +88,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Download Artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: ios-build
       - name: Upload IPA
@@ -110,7 +109,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Download Artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: apk-build
       - name: Upload APK
