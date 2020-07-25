@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "911897153370",
+    "firebase_url": "https://atlezz.firebaseio.com",
+    "project_id": "atlezz",
+    "storage_bucket": "atlezz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911897153370:android:ea679ce9b4cfbde9016d63",
+        "android_client_info": {
+          "package_name": "com.seamlezz.app.Atlezz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911897153370-uds4vjmq6ftif97d7653tov717aio58f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTkpipPVetSz9CD1DnjwQbYhf4H6DEADc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911897153370-uds4vjmq6ftif97d7653tov717aio58f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "911897153370-b2e27dvi7eus6l8kulr8vurai5f1roma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.seamlezz.app.Atlezz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
