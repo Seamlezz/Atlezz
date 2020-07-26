@@ -36,13 +36,12 @@ jobs:
         run: flutter pub get
       - name: Cleaning flutter
         run: flutter clean
-      - name: Build iOS App
-        uses: maierj/fastlane-action@v1.4.0
-        with:
-          lane: 'beta'
-          subdirectory: 'ios'
-          bundle-install-path: 'vendor/bundle'
-          skip-tracking: true
+      - name: submodules-init
+        uses: snickerbockers/submodules-init@v4
+      - name: Bundle Install
+        run: bundle install
+      - name: Build and test
+        run: bundle exec fastlane beta
       - name: Upload iPA
         uses: actions/upload-artifact@v2
         with:
