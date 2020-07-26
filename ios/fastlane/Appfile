@@ -1,0 +1,4 @@
+app_identifier("com.seamlezz.app.Atlezz") # The bundle identifier of your app
+apple_id("gabber200@icloud.com") # Your Apple email address
+team_id "GJXU9JWN83"
+itc_team_id "120083903"
