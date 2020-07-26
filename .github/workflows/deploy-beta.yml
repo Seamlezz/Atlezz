@@ -38,10 +38,11 @@ jobs:
         run: flutter clean
       - name: submodules-init
         uses: snickerbockers/submodules-init@v4
-      - name: Bundle Install
-        run: bundle install
-      - name: Build and test
-        run: bundle exec fastlane beta
+      - name: Bundle Install and Build
+        run: |
+            cd ios
+            bundle install
+            bundle exec fastlane beta
       - name: Upload iPA
         uses: actions/upload-artifact@v2
         with:
