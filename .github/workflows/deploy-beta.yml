@@ -41,6 +41,7 @@ jobs:
       - name: Bundle Install and Build
         run: |
             cd ios
+            bundle update --bundler
             bundle install
             bundle exec fastlane beta
       - name: Upload iPA
