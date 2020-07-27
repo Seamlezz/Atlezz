@@ -3,24 +3,46 @@
 
 default_platform(:ios)
 
-platform :ios do
+keychain_name = "temp"
+keychain_password = "temp"
 
+def delete_temp_keychain(name)
+  delete_keychain(
+    name: name,
+  ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
+end
+
+def create_temp_keychain(name, password)
+  create_keychain(
+    name: name,
+    password: password,
+    default_keychain: true,
+    unlock: true,
+    timeout: 3600,
+    lock_when_sleeps: false,
+  )
+end
+
+def ensure_temp_keychain(name, password)
+  delete_temp_keychain(name)
+  create_temp_keychain(name, password)
+end
+
+platform :ios do
   desc "Builds the ipa file"
   lane :beta do
-     create_keychain(
-         name: "temp",
-         password: "temp",
-         default_keychain: true,
-         unlock: true,
-         timeout: 3600,
-         lock_when_sleeps: false
-      )
-     match(
-        type: "development",
-        readonly: is_ci,
-        keychain_name: "temp",
-        keychain_password: "temp"
-        )
-     gym
+    ensure_temp_keychain(keychain_name, keychain_password)
+    match(
+      type: "development",
+      readonly: is_ci,
+      keychain_name: "temp",
+      keychain_password: "temp",
+    )
+    automatic_code_signing(
+      use_automatic_signing: false,
+    )
+    update_project_provisioning()
+    gym()
+    delete_temp_keychain(keychain_name)
   end
 end
