@@ -38,10 +38,7 @@ platform :ios do
       keychain_name: "temp",
       keychain_password: "temp",
     )
-    automatic_code_signing(
-      use_automatic_signing: false,
-    )
-    update_project_provisioning()
+    disable_automatic_code_signing()
     gym()
     delete_temp_keychain(keychain_name)
   end
