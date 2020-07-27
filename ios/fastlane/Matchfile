@@ -1,4 +1,4 @@
-git_url("git@github.com:Seamlezz/Certs.git")
+git_url("https://github.com/Seamlezz/Certs.git")
 
 storage_mode("git")
 

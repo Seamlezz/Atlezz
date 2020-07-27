@@ -6,7 +6,7 @@ default_platform(:ios)
 platform :ios do
   desc "Builds the ipa file"
   lane :beta do
-     match
+     match(type: "development", readonly: true, keychain_password: ENV["MATCH_PASSWORD"])
      gym
   end
 end
