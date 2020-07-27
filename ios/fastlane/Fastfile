@@ -6,7 +6,7 @@ default_platform(:ios)
 platform :ios do
   desc "Builds the ipa file"
   lane :beta do
-     match --readonly
+     match
      gym
   end
 end
