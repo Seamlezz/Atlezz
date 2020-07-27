@@ -4,6 +4,6 @@
 
 # sdk("iphoneos9.0")
 
-output_directory("./")
+output_directory("./build/Runner")
 
-output_name("Atlezz")
+output_name("Runner")

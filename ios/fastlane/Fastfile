@@ -30,8 +30,13 @@ end
 
 platform :ios do
   desc "Builds the ipa file"
-  lane :beta do
+  lane :build do
     ensure_temp_keychain(keychain_name, keychain_password)
+    Dir.chdir "../.." do
+      sh("flutter", "packages", "get")
+      sh("flutter", "clean")
+      sh("flutter", "build", "ios", "--release", "--no-codesign")
+    end
     match(
       type: "appstore",
       readonly: is_ci,
@@ -46,5 +51,18 @@ platform :ios do
     )
     gym()
     delete_temp_keychain(keychain_name)
+  end
+
+  desc "Deploy a new beta"
+  lane :distribute_beta do |options|
+    # Upload to test flight or AppStore depending on caller parameters
+    firebase_app_distribution(
+      app: ENV["FIREBASE_IOS_APPID"],
+      groups: "ios-testers",
+      release_notes: "Try out the new version",
+      firebase_cli_path: "/usr/local/bin/firebase",
+      firebase_cli_token: ENV["FIREBASE_CI_TOKEN"],
+      ipa_path: "./build/Runner/Runner.ipa",
+    )
   end
 end
