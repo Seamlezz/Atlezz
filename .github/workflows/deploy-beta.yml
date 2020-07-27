@@ -39,6 +39,8 @@ jobs:
       - name: submodules-init
         uses: snickerbockers/submodules-init@v4
       - name: Bundle Install and Build
+        env:
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
         run: |
             cd ios
             bundle update --bundler
