@@ -5,27 +5,21 @@ default_platform(:ios)
 
 platform :ios do
 
-  private_lane :setup_project do
-    if is_ci?
-      create_keychain(
-        name: "actiontest_keychain",
-        password: "meow",
-        default_keychain: true,
-        unlock: true,
-        timeout: 3600,
-        lock_when_sleeps: false
-      )
-    end
-  end
-
   desc "Builds the ipa file"
   lane :beta do
+     create_keychain(
+         name: "temp",
+         password: "temp",
+         default_keychain: true,
+         unlock: true,
+         timeout: 3600,
+         lock_when_sleeps: false
+      )
      match(
         type: "development",
         readonly: is_ci,
-        keychain_name:  is_ci? ? "actiontest_keychain" : nil,
-        keychain_password: is_ci? ? "meow" : nil,
-        keychain_password: ENV["MATCH_PASSWORD"]
+        keychain_name: "temp",
+        keychain_password: "temp"
         )
      gym
   end
