@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   lint:
-    name: Check code style
+    name: Lint code style
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -11,7 +11,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
-          channel: 'beta'
+          channel: "beta"
       - name: Get packages in a Flutter project
         run: flutter pub get
       - name: Run lint
@@ -19,5 +19,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          check_name: 'Check code style'
+          check_name: "Lint code style"
           commit_sha: ${{ github.sha }}
+  coverage:
+    name: Check code coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "beta"
+      - name: Get packages in a Flutter project
+        run: flutter pub get
+      - name: "Test flutter"
+        run: flutter test --coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage/lcov.info
