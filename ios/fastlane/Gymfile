@@ -1,0 +1,9 @@
+# fastlane gym --help
+
+# scheme("Example")
+
+# sdk("iphoneos9.0")
+
+output_directory("./")
+
+output_name("Atlezz")
