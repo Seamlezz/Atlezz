@@ -32,11 +32,6 @@ platform :ios do
   desc "Builds the ipa file"
   lane :build do
     ensure_temp_keychain(keychain_name, keychain_password)
-    Dir.chdir "../.." do
-      sh("flutter", "packages", "get")
-      sh("flutter", "clean")
-      sh("flutter", "build", "ios", "--release", "--no-codesign")
-    end
     match(
       type: "appstore",
       readonly: is_ci,
