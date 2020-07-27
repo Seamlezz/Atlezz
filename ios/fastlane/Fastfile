@@ -33,7 +33,7 @@ platform :ios do
   lane :beta do
     ensure_temp_keychain(keychain_name, keychain_password)
     match(
-      type: "development",
+      type: "appstore",
       readonly: is_ci,
       keychain_name: "temp",
       keychain_password: "temp",
