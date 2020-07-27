@@ -54,6 +54,7 @@ jobs:
           bundle update --bundler
           bundle install
           bundle exec fastlane build
+          curl -sL firebase.tools | bash
           bundle exec fastlane distribute_beta
   #  build_apk:
   #    name: Build Flutter (Android)
