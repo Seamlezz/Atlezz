@@ -40,7 +40,11 @@ jobs:
         uses: snickerbockers/submodules-init@v4
       - name: Bundle Install and Build
         env:
+          FASTLANE_PASSWORD: ${{secrets.FASTLANE_PASSWORD}}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
+          MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
+          LANG: en_GB.UTF-8
+          LC_ALL: en_GB.UTF-8
         run: |
             cd ios
             bundle update --bundler
