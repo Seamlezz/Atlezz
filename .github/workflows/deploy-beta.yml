@@ -36,6 +36,8 @@ jobs:
         run: flutter pub get
       - name: Cleaning flutter
         run: flutter clean
+      - name: Building flutter flutter
+        run: flutter build ios --release --no-codesign
       - name: submodules-init
         uses: snickerbockers/submodules-init@v4
       - name: Bundle Install and Build
