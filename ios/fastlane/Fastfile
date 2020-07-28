@@ -35,8 +35,8 @@ platform :ios do
     match(
       type: "appstore",
       readonly: is_ci,
-      keychain_name: "temp",
-      keychain_password: "temp",
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
     )
     update_code_signing_settings(
       use_automatic_signing: false,
@@ -56,6 +56,26 @@ platform :ios do
       firebase_cli_path: "/usr/local/bin/firebase",
       firebase_cli_token: ENV["FIREBASE_CI_TOKEN"],
       ipa_path: "./build/Runner/Runner.ipa",
+    )
+  end
+
+  desc "Manage the provisioning profiles"
+  lane :manage_profiles do |options|
+    # Upload to test flight or AppStore depending on caller parameters
+    match(
+      type: "development",
+      readonly: is_ci,
+    )
+    match(
+      type: "adhoc",
+      readonly: is_ci,
+    )
+    match(
+      type: "appstore",
+      readonly: is_ci,
+    )
+    update_code_signing_settings(
+      use_automatic_signing: false,
     )
   end
 end
